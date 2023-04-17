@@ -41,7 +41,7 @@ public class PostagemController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Postagem> getById(@PathVariable Long id){ 
 		return postagemRepository.findById(id)
-				.map(resposta -> ResponseEntity.ok(resposta))
+				.map(resposta ->ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build()); 
 				
 		// SELECT * FROM tb_postagens WHERE id = ?;
@@ -64,12 +64,12 @@ public class PostagemController {
 		//Post Cria;
 	}
 	
-	@PutMapping
+	@PutMapping("/{id}")
 	public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem){
-		return ResponseEntity.status(HttpStatus.OK).body(postagemRepository.save(postagem))
-				.map(resposta -> ResponseEntity.ok(PostagemRepository.save(postagem)))
+		return postagemRepository.findById(postagem.getId())
+				.map(resp -> ResponseEntity.status(HttpStatus.OK).body(postagemRepository.save(postagem)))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-	
+
 		/*UPDATE tb_psotagens SET titulo = ?, texto = ?, data = ?
 		* WHERE id = id*/
 		
