@@ -58,7 +58,7 @@ public class UsuarioControllerTest {
 	}
 	
 	@Test
-	@DisplayName("😉 Não deve permitir a duplicação do Usuário")
+	@DisplayName("😎Não deve permitir a duplicação do Usuário")
 	public void naoDeveDuplicarUsuario() {
 		
 		usuarioService.cadastrarUsuario(new Usuario(0L, "Stephany", "stef@email.com.br","12345678", "-"));
@@ -73,7 +73,7 @@ public class UsuarioControllerTest {
 	}
 	
 	@Test
-	@DisplayName("🤔Deve Atualizar os dados do Usuário")
+	@DisplayName("😤Deve Atualizar os dados do Usuário")
 	public void deveAtualizarUmUsuario() {
 		
 		Optional<Usuario> usuarioCadastrado = usuarioService.cadastrarUsuario(new Usuario(0L, 
@@ -93,7 +93,7 @@ public class UsuarioControllerTest {
 	}
 	
 	@Test
-	@DisplayName("🤔Deve Listar todos os Usuários")
+	@DisplayName("🤞Deve Listar todos os Usuários")
 	public void deveMostrarTodosUsuarios() {
 		
 		usuarioService.cadastrarUsuario(new Usuario(0L, "Giselle", "gigi@email.com.br", "12345678", "-"));
@@ -111,7 +111,7 @@ public class UsuarioControllerTest {
 	}
 	
 	@Test
-	@DisplayName("🤔Deve procurar Usuário por id")
+	@DisplayName("🕵️‍♀️Deve procurar Usuário por id")
 	public void deveProcurarUsuarioid() {
 		
 		Optional<Usuario> usuarioCadastrado = usuarioService.cadastrarUsuario(new Usuario(0L, 
