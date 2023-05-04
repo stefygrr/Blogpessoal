@@ -59,7 +59,6 @@ public class PostagemController {
 
 	@PostMapping
 	public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem) {
-
 		return temaRepository.findById(postagem.getTema().getId())
 				.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(postagemRepository.save(postagem)))
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
@@ -71,20 +70,25 @@ public class PostagemController {
 		// Post Cria;
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem){
-		return postagemRepository.findById(postagem.getId())
-				.map(resposta -> 
-					temaRepository.findById(postagem.getTema().getId())
-						.map(resposta2 -> ResponseEntity.status(HttpStatus.OK).body(postagemRepository.save(postagem)))
-						.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build())
-				)
-				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-	
-		/*UPDATE tb_psotagens SET titulo = ?, texto = ?, data = ?
-		* WHERE id = id*/
+	@PutMapping
+	public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem) {
+
+		if (postagemRepository.existsById(postagem.getId())) {
+
+			if (temaRepository.existsById(postagem.getTema().getId()))
+				return ResponseEntity.status(HttpStatus.OK).body(postagemRepository.save(postagem));
+
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tema não existe!", null);
+
+		}
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		
-		//Put Atualiza;
+		/*
+		 * UPDATE tb_psotagens SET titulo = ?, texto = ?, data = ? WHERE id = id
+		 */
+
+		// Put Atualiza;
 	}
 
 	@ResponseStatus(HttpStatus.NO_CONTENT)
